@@ -36,6 +36,7 @@ su.log.setup(
     level_stderr=logging.WARNING,
     level_file=logging.DEBUG)
 logger = su.log.get_logger(__name__)
+print(log_file)
 logger.info(f"See log file: {log_file}")
 
 class BailOutError(RuntimeError):
