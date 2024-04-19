@@ -30,13 +30,13 @@ public class StaticInitCopyTransformer implements ClassFileTransformer {
                     firstTransformClass(classLoader, className, classfileBuffer);
 
             // DEBUGGING
-            // try {
-            //     jattack.util.IOUtil.saveBytecodeToFile(
-            //             transformedClassfile,
-            //             TypeUtil.getSimpleName(TypeUtil.intern2Bin(className)));
-            // } catch (java.io.IOException e) {
-            //     e.printStackTrace();
-            // }
+             try {
+                 jattack.util.IOUtil.saveBytecodeToFile(
+                         transformedClassfile,
+                         TypeUtil.getSimpleName(TypeUtil.intern2Bin(className)));
+             } catch (java.io.IOException e) {
+                 e.printStackTrace();
+             }
 
             return transformedClassfile;
         } catch (Throwable t) {
@@ -84,6 +84,8 @@ public class StaticInitCopyTransformer implements ClassFileTransformer {
     }
 
     private boolean isIgnoreClass(String className) {
+        if (Config.tmplClzFullName==null)
+            return true;
         String tmplClassName = TypeUtil.bin2Intern(Config.tmplClzFullName);
         return !className.equals(tmplClassName)
                 && !className.startsWith(tmplClassName + '$');
